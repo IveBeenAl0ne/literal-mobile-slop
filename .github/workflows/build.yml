@@ -49,8 +49,6 @@ jobs:
   android:
     needs: test
     runs-on: ubuntu-latest
-    env:
-      TYCOON_DEBUG_KEYSTORE: ${{ runner.temp }}/tycoon-debug.keystore
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
