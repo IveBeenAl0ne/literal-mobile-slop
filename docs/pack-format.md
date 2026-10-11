@@ -44,3 +44,9 @@ Supported shapes: `box`, `sphere`, `cylinder`, `cone`. Models are data, rendered
 `GET /catalog.json` returns `{"format":1,"packs":[...]}`. Entries include `id`, `version`, `title`, `description`, `sha256` and `size`. `GET /packs/<id>.json` returns the exact bytes matching the hash. A failed hash or validation leaves the previous installed version intact. SHA-256 detects corruption/version races; HTTPS authenticates the server. No publisher-signature infrastructure is implemented.
 
 You can statically host the pack directory plus a generated catalog. Run the included server's `CatalogServer.catalog()` to generate the catalog; hashes must be computed from the actual hosted bytes. Avoid transformations that reformat JSON after computing the hash.
+
+## Static catalog artwork
+
+Optional game covers live at `client/assets/covers/<id>.png` (PNG, at most 1 MiB and 2048 pixels per side). `tools/export_catalog.py` adds `cover_sha256` to catalog entries and exports the corresponding files. The client downloads, verifies, and caches them independently of the game pack. A new cover does not require an app rebuild. Without a cover, the library uses a generated tile.
+
+Shared runtime upgrades are saved independently of the pack: bag upgrades add four slots, speed upgrades increase walking speed, and station levels increase storage and reduce cycle time. Keep IDs stable when changing pack versions.

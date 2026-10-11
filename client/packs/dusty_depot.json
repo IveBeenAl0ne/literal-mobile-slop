@@ -3,7 +3,7 @@
   "id": "dusty_depot",
   "title": "Dusty Depot",
   "description": "Collect scrap, recycle it into parts, and reopen the roadside parts store.",
-  "version": 1,
+  "version": 2,
   "starting_cash": 40,
   "theme": {
     "ground": "efb782",
@@ -33,8 +33,8 @@
       "input": "",
       "output": "scrap",
       "price": 0,
-      "cycle": 2,
-      "capacity": 8,
+      "cycle": 1.0,
+      "capacity": 12,
       "requires": []
     },
     {
@@ -49,8 +49,8 @@
       "input": "scrap",
       "output": "parts",
       "price": 0,
-      "cycle": 2,
-      "capacity": 8,
+      "cycle": 1.2,
+      "capacity": 12,
       "requires": []
     },
     {
@@ -65,8 +65,8 @@
       "input": "parts",
       "output": "",
       "price": 24,
-      "cycle": 2,
-      "capacity": 8,
+      "cycle": 1.4,
+      "capacity": 12,
       "requires": []
     },
     {
@@ -81,8 +81,8 @@
       "input": "",
       "output": "scrap",
       "price": 0,
-      "cycle": 2,
-      "capacity": 8,
+      "cycle": 1.0,
+      "capacity": 12,
       "requires": []
     },
     {
@@ -97,8 +97,8 @@
       "input": "",
       "output": "",
       "price": 0,
-      "cycle": 1.5,
-      "capacity": 8,
+      "cycle": 1.2,
+      "capacity": 12,
       "requires": [
         "yard"
       ],
@@ -116,8 +116,8 @@
       "input": "",
       "output": "",
       "price": 0,
-      "cycle": 2,
-      "capacity": 8,
+      "cycle": 1.2,
+      "capacity": 12,
       "requires": [
         "helper"
       ]

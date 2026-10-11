@@ -1,103 +1,83 @@
 # Tycoon Hub
 
-A native Godot 4.5.1 app for **Android and iOS** that runs a collection of downloadable, data-driven 3D tycoon games. One installed app contains the shared mechanics; new games are published as JSON packs and downloaded from your catalog server. Downloaded packs and progress remain on the device for offline play.
+One native **Android + iOS** app for browsing, downloading, and playing a collection of tycoons. Games are data packs served by static HTTPS hosting. The shared Godot 4.5.1 runtime handles movement, production, shops, customer queues, helpers, upgrades, and saves.
 
-This is a working first foundation, not a polished commercial engine or a reproduction of any screenshot's original game. The source is maintained in [IveBeenAl0ne/literal-mobile-slop](https://github.com/IveBeenAl0ne/literal-mobile-slop). The public catalog is served as static files from this repository; no running backend is required for downloads. The gameplay/server/download tests, Android APK export, and unsigned iOS device build have passed on GitHub Actions. Phone-device testing and credentialed iOS signing remain unverified.
+The app has a fixed catalog address. It checks for games automatically on launch and whenever you leave a game. Players browse artwork, search, open a game page, and tap **Get** or **Play**. There is no server address setting. Installed games and the last catalog work offline.
 
-![Native runtime preview](docs/runtime-preview.png)
+![Library](docs/library-preview.png)
 
-## Included
+## Games and gameplay
 
-- Native 3D world, orthographic follow camera, animated simple characters, visible carried stacks, joystick and keyboard movement.
-- Sources, processors, shops, gradual spending on unlock pads, prerequisites, helpers, customer visuals, and progression prompts.
-- Three independently playable starter games: Sunny Farm, Corner Café, Dusty Depot.
-- Library screen with HTTP catalog, download/update buttons, SHA-256 checks, bounded and validated packs, atomic installation, independent saves.
-- Static GitHub-hosted catalog plus a downloadable Apple Orchard sample.
-- Python catalog server, browser pack editor with draggable layout, JSON import/export, and authenticated local publishing.
-- GitHub Actions: gameplay/server tests, Android debug APK, unsigned iOS device build and Xcode project. Optional signed iOS export using your certificate and profile.
+Sunny Farm, Corner Café, and Dusty Depot are bundled. Apple Orchard and Donut Studio are downloadable from the catalog. Donut Studio has two production lines, shops, helpers, and unlockable guest seating.
 
-## Run on a computer now
+- Walk with the touch joystick, or WASD/arrows on a computer.
+- **Green pickup zone:** collect crops, ingredients, or finished products.
+- **Blue supply zone:** deliver the items required by a machine or counter.
+- **Yellow cash zone:** collect cash left by customers.
+- **Build pad:** stand on an available purchase pad to spend cash gradually and unlock it.
+- **Upgrades:** increase carrying capacity or movement speed. Stand near a source, machine, or counter to upgrade its storage and cycle speed.
 
-1. Install **Godot 4.5.1 standard**, not the .NET edition.
-2. Import `client/project.godot`, then press **F6/F5** (F5 runs the app).
-3. Pick a starter pack. Use WASD/arrows or drag the joystick. Stand beside a station to harvest, deliver, collect cash, or pay toward a purchase.
-4. Harvest from the source on the left; stock the station on the right. Café/depot require taking the processed output to the shop farther north. Standing beside a shop with no items to deliver collects its money.
+Customers queue, reach a counter, wait for service, consume stock, then leave. Shops cannot sell without a customer. Hired helpers visibly pick up matching stock and carry it to their assigned station using the central aisle. Production pauses while the app is closed; saves remain separate for each game.
 
-No Node, Unity, or third-party Python modules are required.
+![Donut Studio](docs/runtime-preview.png)
 
-## Download from GitHub now
+## Play and build
 
-The APK from the first verified build defaults to localhost. In its server address field enter:
+Import `client/project.godot` in **Godot 4.5.1 standard** and run it. No .NET edition or third-party Python modules are required.
 
-```text
-https://raw.githubusercontent.com/IveBeenAl0ne/literal-mobile-slop/main/client
-```
+[GitHub Actions builds](https://github.com/IveBeenAl0ne/literal-mobile-slop/actions): **Build Tycoon Hub** produces an installable arm64 Android debug APK and an unsigned iPhone IPA/Xcode project. Download artifacts from a successful run for the current commit. The older 0.1 APK has the old library UI; install the 0.2 build to get the redesigned library and gameplay changes. Unsigned iOS IPAs require signing before phone installation. Optional signed iOS export is documented in [docs/builds.md](docs/builds.md).
 
-Tap **Connect / Refresh catalog**, then **Download** on **Apple Orchard**. The other three catalog games are already bundled. Future builds default to this GitHub address. Saved custom server addresses remain in effect.
+Both platform builds were verified for the first foundation; updated builds are run on each push. Phone-device testing and credentialed iOS signing remain unverified. The debug Android key is cached between builds: keep that cache to preserve upgrade compatibility and local saves.
 
-## Static hosting and publishing
+## Make and publish a game
 
-The app only requests `catalog.json` and `packs/<id>.json` under the server address. `catalog.json` lists titles, versions, sizes, and SHA-256 hashes of the exact downloaded bytes. Any static HTTPS host works. The Python program is needed only if you want its local editing/publishing interface.
-
-1. Use the local editor below, or export a game as JSON into `client/packs/<id>.json`.
-2. For updates, increase the game's version.
-3. Run `python tools/export_catalog.py` to regenerate `client/catalog.json`.
-4. Commit the pack files and catalog together, then push to GitHub.
-5. Refresh the catalog in the app. Download the new game or update; no app rebuild is needed.
-
-GitHub's raw-file hosting works immediately for this public repo. Updates can take a few minutes to propagate through caches; if a checksum mismatch appears, refresh and retry later. For larger distribution, use dedicated static hosting/CDN.
-
-To export a standalone static folder: `python tools/export_catalog.py --output-dir public`. Upload that folder to your HTTPS host. For local testing: `python -m http.server 8787 --directory public`.
-
-Optional GitHub Pages: in repository **Settings → Pages**, set **Source → GitHub Actions**, then run **Publish catalog to GitHub Pages** from Actions. The app's base address will be `https://ivebeenal0ne.github.io/literal-mobile-slop` after successful deployment. This optional workflow is manual; rerun it after changing packs. Pages does not run Python or accept editor uploads. Edit locally, commit, then deploy. GitHub raw-file hosting remains the default and does not need Pages enabled.
-
-## Create and download a new game
-
-From this repository's root:
+From the repository root:
 
 ```sh
 python server/server.py
 ```
 
-Open `http://localhost:8787/editor` on the server computer. Paste the editor token printed by the server. Select a starter, click **Clone as new game**, change its ID/title/theme/layout and balance, then **Publish**. On updates, keep the same ID and increase the version.
+Open `http://localhost:8787/editor` on your computer and enter the editor token printed in the terminal. Select a starter, clone it with a new ID, edit its layout/economy/colors, and publish. The local program saves `client/packs/<id>.json`. You can also export or edit JSON directly. The local editor is a creation tool; phone players use the fixed public catalog.
 
-In the phone app enter the server's address and tap **Connect / Refresh catalog**, then **Download**. Use the computer's LAN address on a phone, not `127.0.0.1` (that points at the phone itself). For iOS local development use a local hostname such as `http://your-computer.local:8787`; the iOS preset permits local networking. **Use HTTPS for a hosted server**; arbitrary public HTTP is not enabled in iOS.
+To publish publicly:
 
-Both devices must reach the server. Allow port 8787 in your computer's firewall for LAN testing. The editor only accepts connections/publishing from localhost. Public users only get the catalog and pack files. For production, terminate HTTPS with a reverse proxy or serve the catalog and pack directory from ordinary static hosting.
+1. Save the game in `client/packs/<id>.json`. Increase `version` for an update; retain existing station/item IDs to preserve progress.
+2. Optionally put a PNG thumbnail in `client/assets/covers/<id>.png` (at most 1 MiB, at most 2048 pixels per side).
+3. Run `python tools/export_catalog.py`.
+4. Commit the pack, cover, and updated `client/catalog.json` together and push to GitHub.
+5. Players see new games on the next launch or return to the library. **No app rebuild is needed for a new pack or thumbnail.**
 
-## Verified builds
+The catalog contains versions and SHA-256 checksums. The app verifies and validates downloads before installation; cached packs survive connection failures. GitHub raw hosting may take a few minutes to propagate updates. If files are in transition, the app asks the player to retry rather than replacing the installed game.
 
-[Download Android APK / unsigned iOS IPA from the passing build](https://github.com/IveBeenAl0ne/literal-mobile-slop/actions/runs/38164007103). Open the run and choose the platform artifact.
+## Static hosting
 
-## GitHub builds
+The default source is `https://raw.githubusercontent.com/IveBeenAl0ne/literal-mobile-slop/main/client`, configured in the runtime code, with no player-facing setting. To use another host, change `CATALOG_BASE_URL` and rebuild the shared app once.
 
-Upload this folder's **contents at the repository root**, including `.github`. On pushes to `main`/`master`, PRs, or manual runs, `Build Tycoon Hub` runs:
+Only static GET requests are needed:
 
-1. Python tests and native Godot simulation/world/download tests.
-2. Android job creates `TycoonHub-Android-debug` containing an arm64 debug APK.
-3. macOS job exports an Xcode project and compiles a device app, packaged as `TycoonHub-unsigned.ipa`. An unsigned IPA requires signing before installation. It is not a directly installable App Store/TestFlight build.
+- `/catalog.json`
+- `/packs/<id>.json`
+- `/assets/covers/<id>.png` when a cover checksum is present
 
-The Android debug keystore is cached to preserve signing identity between builds. Keep that cache; changing keys can require uninstalling the previous APK, which removes its local saves. Release Android signing is not configured yet.
+Export a standalone folder with `python tools/export_catalog.py --output-dir public`, then upload it to any HTTPS host. The phone app does not need the Python server running.
 
-Optional iOS signing: see [docs/builds.md](docs/builds.md). Godot's iOS exports run on macOS with Xcode; simulator exports are not supported by the pinned Godot version. No certificates or provisioning files belong in the repository.
+Optional GitHub Pages: set repository **Settings → Pages → Source → GitHub Actions**, then run **Publish catalog to GitHub Pages**. The workflow is manual; rerun it after changing packs. After deployment, its base address is `https://ivebeenal0ne.github.io/literal-mobile-slop`; change the fixed runtime constant if using it instead of raw hosting. Pages does not run Python or accept editor uploads.
 
-## Pack format and extension boundary
+## Runtime and checks
 
-See [docs/pack-format.md](docs/pack-format.md). Packs can define items, stations, production chains, prerequisites, costs, sale prices, timing, colors, positions, and compound low-poly prop models. They contain no executable scripts and no `.pck` mounts. A new pack using existing mechanics needs no app rebuild. Adding a new mechanic, loading arbitrary GLB/textures/audio, or changing shared UI/runtime behavior currently requires an app update.
+Packs support items, production chains, stations, prerequisites, costs, prices, timing, colors, and compound low-poly props. They contain no executable scripts. Adding a core mechanic or importing arbitrary GLB/audio still requires an app update. Current scenery, characters, sounds, and item shapes are generated by the shared runtime. This project is an original reusable tycoon foundation, not a 1:1 Donut Place recreation.
 
-Saves are per pack ID and reconcile stations by ID. Keep existing station/item IDs stable when publishing updates. Removing an item discards its carried stock on next restore; changing economic rules does not reset an existing balance. Simulation pauses when the app is closed; offline earnings and cloud saves are not implemented.
-
-Customer characters currently provide simple animated presentation. Sales happen on each shop's configured timer and do not depend on a full customer navigation/queue simulation. Workers transfer matching stock on a timer. Detailed character rigs, sound, terrain editing, obstacle navigation, and imported artwork remain future work.
-
-## Checks
+See [docs/pack-format.md](docs/pack-format.md) for the format.
 
 ```sh
+python tools/export_catalog.py --check
 python -m unittest discover -s tests -v
 godot --headless --path client --editor --import --quit
 godot --headless --path client --script res://tests/test_simulation.gd
 godot --headless --path client --script res://tests/test_world.gd
+godot --headless --path client --script res://tests/test_polish.gd
 ```
 
-The Actions workflow additionally exercises the native client against a real local HTTP server. Tests cover harvesting, processing, delivery, sales, partial purchases, helper transfers, save restoration, invalid packs, publishing/version conflicts, checksums, offline reload, and launching downloaded games.
+Actions also tests automatic launch/return catalog refresh, thumbnail downloads, checksum verification, installation, offline catalog preservation, and playing a downloaded game against a plain static HTTP server. Gameplay tests cover both production chains and actual customer/helper behavior. `client/tests/capture.gd` generates the real runtime screenshots used for the thumbnails and documentation.
 
-Engine code in this repository is MIT licensed. Godot is a separate MIT licensed dependency. Original screenshot art has not been copied into the project.
+Code is MIT licensed. Godot is a separate MIT licensed dependency. Reference screenshots and video art have not been copied into the project.

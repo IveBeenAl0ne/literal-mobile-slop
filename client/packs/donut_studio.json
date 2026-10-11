@@ -1,0 +1,204 @@
+{
+  "format": 1,
+  "id": "donut_studio",
+  "title": "Donut Studio",
+  "description": "Bake, stack, and sell donuts. Hire a crew, open a chocolate line, and turn a tiny shop into a busy bakery.",
+  "version": 1,
+  "starting_cash": 40,
+  "theme": {
+    "ground": "e3d6c1",
+    "accent": "e99baa",
+    "player": "7ac3cb"
+  },
+  "items": [
+    {
+      "id": "dough",
+      "color": "ebcd8e"
+    },
+    {
+      "id": "donut",
+      "color": "f397b6"
+    },
+    {
+      "id": "chocolate_donut",
+      "color": "8d5b41"
+    }
+  ],
+  "stations": [
+    {
+      "id": "dough",
+      "kind": "source",
+      "name": "Dough delivery",
+      "position": [
+        -4,
+        2
+      ],
+      "cost": 0,
+      "input": "",
+      "output": "dough",
+      "price": 0,
+      "cycle": 0.7,
+      "capacity": 12,
+      "requires": []
+    },
+    {
+      "id": "oven",
+      "kind": "processor",
+      "name": "Donut maker",
+      "position": [
+        4,
+        2
+      ],
+      "cost": 0,
+      "input": "dough",
+      "output": "donut",
+      "price": 0,
+      "cycle": 1,
+      "capacity": 12,
+      "requires": []
+    },
+    {
+      "id": "counter",
+      "kind": "shop",
+      "name": "Donut counter",
+      "position": [
+        4,
+        -3
+      ],
+      "cost": 0,
+      "input": "donut",
+      "output": "",
+      "price": 15,
+      "cycle": 1.2,
+      "capacity": 12,
+      "requires": []
+    },
+    {
+      "id": "delivery",
+      "kind": "source",
+      "name": "Extra dough",
+      "position": [
+        -4,
+        -3
+      ],
+      "cost": 60,
+      "input": "",
+      "output": "dough",
+      "price": 0,
+      "cycle": 0.7,
+      "capacity": 12,
+      "requires": []
+    },
+    {
+      "id": "baker",
+      "kind": "worker",
+      "name": "Baker",
+      "position": [
+        -4,
+        -8
+      ],
+      "cost": 120,
+      "input": "",
+      "output": "",
+      "price": 0,
+      "cycle": 1,
+      "capacity": 12,
+      "requires": [
+        "delivery"
+      ],
+      "target": "oven"
+    },
+    {
+      "id": "runner",
+      "kind": "worker",
+      "name": "Counter helper",
+      "position": [
+        -4,
+        -13
+      ],
+      "cost": 180,
+      "input": "",
+      "output": "",
+      "price": 0,
+      "cycle": 1,
+      "capacity": 12,
+      "requires": [
+        "baker"
+      ],
+      "target": "counter"
+    },
+    {
+      "id": "chocolate",
+      "kind": "processor",
+      "name": "Chocolate maker",
+      "position": [
+        4,
+        -8
+      ],
+      "cost": 260,
+      "input": "dough",
+      "output": "chocolate_donut",
+      "price": 0,
+      "cycle": 1.3,
+      "capacity": 12,
+      "requires": [
+        "runner"
+      ]
+    },
+    {
+      "id": "chocolate_counter",
+      "kind": "shop",
+      "name": "Chocolate counter",
+      "position": [
+        4,
+        -13
+      ],
+      "cost": 340,
+      "input": "chocolate_donut",
+      "output": "",
+      "price": 28,
+      "cycle": 1.3,
+      "capacity": 12,
+      "requires": [
+        "chocolate"
+      ]
+    },
+    {
+      "id": "cocoa_runner",
+      "kind": "worker",
+      "name": "Chocolate helper",
+      "position": [
+        -8,
+        -13
+      ],
+      "cost": 240,
+      "input": "",
+      "output": "",
+      "price": 0,
+      "cycle": 1,
+      "capacity": 12,
+      "requires": [
+        "chocolate_counter"
+      ],
+      "target": "chocolate_counter"
+    },
+    {
+      "id": "seating",
+      "kind": "decoration",
+      "name": "Guest seating",
+      "position": [
+        -8,
+        -8
+      ],
+      "cost": 180,
+      "input": "",
+      "output": "",
+      "price": 0,
+      "cycle": 1,
+      "capacity": 12,
+      "requires": [
+        "chocolate_counter"
+      ]
+    }
+  ]
+}

@@ -40,7 +40,7 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(json.loads(raw),self.pack)
         with self.assertRaises(HTTPError) as cm: self.post(self.pack)
         self.assertEqual(cm.exception.code,409)
-        self.pack['version']=2
+        self.pack['version'] += 1
         with self.post(self.pack) as r: self.assertEqual(r.status,200)
 
     def test_publish_denies_wrong_token(self):
@@ -49,10 +49,10 @@ class CatalogTests(unittest.TestCase):
 
     def test_rejects_invalid_pack_without_overwriting(self):
         with self.post(self.pack): pass
-        p=copy.deepcopy(self.pack);p['version']=2;p['stations'][0]['output']='missing'
+        p=copy.deepcopy(self.pack);p['version'] += 1;p['stations'][0]['output']='missing'
         with self.assertRaises(HTTPError) as cm: self.post(p)
         self.assertEqual(cm.exception.code,400)
-        self.assertEqual(self.server.catalog()['packs'][0]['version'],1)
+        self.assertEqual(self.server.catalog()['packs'][0]['version'],self.pack['version'])
 
     def test_bad_dependencies_and_path_traversal(self):
         p=copy.deepcopy(self.pack);p['id']='../escape'

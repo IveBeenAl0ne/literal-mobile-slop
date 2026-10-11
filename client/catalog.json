@@ -3,35 +3,48 @@
   "packs": [
     {
       "id": "apple_orchard",
-      "version": 1,
+      "version": 2,
       "title": "Apple Orchard",
       "description": "Downloadable farm variant: gather apples, press juice, and expand your orchard.",
-      "sha256": "5a37b0e78df9fd866e4661cfb2632f5995d18e9c6edcd681a926cb3de40d2f11",
-      "size": 2255
+      "sha256": "32a156f289e221e01bac38353a28f9758d98e42c6f786110515ee89f0a194ca9",
+      "size": 2271,
+      "cover_sha256": "6a3a69c7a61caf0fca7a6f27a36086973211e3b1573bf0876801490ed89c8227"
     },
     {
       "id": "corner_cafe",
-      "version": 1,
+      "version": 2,
       "title": "Corner Caf\u00e9",
       "description": "Carry beans to the roaster, stock the coffee counter, and hire a barista.",
-      "sha256": "871c9d2325b2350d38fd471401c1ff2e2ec831a5be6652cf570cfc50ddaa447d",
-      "size": 2214
+      "sha256": "921633314cc90e8ea5ceb190c08c1f7fe744908586f910c68ab8f55030c5832e",
+      "size": 2230,
+      "cover_sha256": "c05effdd2a646560d7a1a5904dd19d798161de547bbe5c72c431d471e0db33da"
+    },
+    {
+      "id": "donut_studio",
+      "version": 1,
+      "title": "Donut Studio",
+      "description": "Bake, stack, and sell donuts. Hire a crew, open a chocolate line, and turn a tiny shop into a busy bakery.",
+      "sha256": "f6f73be177793dce83bbe6b183933b5afed455b4e2fd9e9f3f8c85d488428430",
+      "size": 3680,
+      "cover_sha256": "91650829023a54c82ccabc8999444f1c8137715dcc5c8c88b6d17e9a4d9d30dd"
     },
     {
       "id": "dusty_depot",
-      "version": 1,
+      "version": 2,
       "title": "Dusty Depot",
       "description": "Collect scrap, recycle it into parts, and reopen the roadside parts store.",
-      "sha256": "e36c0b4ea68910aac0ac44043c7242ade3ba17b4ebac9ff5a69dba989ef4c0a6",
-      "size": 2188
+      "sha256": "c1271a9501474b415a4d0c72ddce464e4aac842c723b7eddd98409a0edd0f268",
+      "size": 2204,
+      "cover_sha256": "5f2bc446d01f6e0f872f810651a76597453257053d225350831ec2d32d6fce39"
     },
     {
       "id": "sunny_farm",
-      "version": 1,
+      "version": 2,
       "title": "Sunny Farm",
       "description": "Harvest tomatoes, supply your market, and grow a small farm into a busy business.",
-      "sha256": "3397b0bd8fcfc7019583bb57f040efeab21e18cc3df4a1566709616476ff45c1",
-      "size": 2255
+      "sha256": "f385bf34d4f0d14764c8cf0861a7a6939fa899c420d85f28757abc356cc5f892",
+      "size": 2271,
+      "cover_sha256": "28756f2f6ee481dd1f26c93768d3d2020d12fd11877675eccb59d9f0624ab7a7"
     }
   ]
 }

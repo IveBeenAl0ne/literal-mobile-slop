@@ -38,11 +38,12 @@ jobs:
           godot --headless --path client --editor --import --quit
           godot --headless --path client --script res://tests/test_simulation.gd
           godot --headless --path client --script res://tests/test_world.gd
+          godot --headless --path client --script res://tests/test_polish.gd
       - name: Test native downloads from a plain static HTTP server
         run: |
           mkdir -p /tmp/tycoon-test-packs
           python tools/create_test_pack.py /tmp/tycoon-test-packs
-          python tools/export_catalog.py --packs /tmp/tycoon-test-packs --output-dir /tmp/tycoon-static
+          python tools/export_catalog.py --packs /tmp/tycoon-test-packs --covers /tmp/tycoon-test-packs/covers --output-dir /tmp/tycoon-static
           python -m http.server 18787 --bind 127.0.0.1 --directory /tmp/tycoon-static > /tmp/tycoon-server.log 2>&1 &
           SERVER_PID=$!
           trap 'kill "$SERVER_PID"' EXIT
