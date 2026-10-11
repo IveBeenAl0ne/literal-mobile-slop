@@ -1,0 +1,130 @@
+{
+  "format": 1,
+  "id": "apple_orchard",
+  "title": "Apple Orchard",
+  "description": "Downloadable farm variant: gather apples, press juice, and expand your orchard.",
+  "version": 1,
+  "starting_cash": 40,
+  "theme": {
+    "ground": "a9cf72",
+    "accent": "e58b3e",
+    "player": "eac04d"
+  },
+  "items": [
+    {
+      "id": "apple",
+      "color": "db403b"
+    },
+    {
+      "id": "juice",
+      "color": "ffae64"
+    }
+  ],
+  "stations": [
+    {
+      "id": "patch",
+      "kind": "source",
+      "name": "Apple trees",
+      "position": [
+        -4,
+        2
+      ],
+      "cost": 0,
+      "input": "",
+      "output": "apple",
+      "price": 0,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": []
+    },
+    {
+      "id": "market",
+      "kind": "shop",
+      "name": "Farm market",
+      "position": [
+        4,
+        2
+      ],
+      "cost": 0,
+      "input": "apple",
+      "output": "",
+      "price": 12,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": []
+    },
+    {
+      "id": "orchard",
+      "kind": "source",
+      "name": "Second orchard",
+      "position": [
+        -4,
+        -3
+      ],
+      "cost": 80,
+      "input": "",
+      "output": "apple",
+      "price": 0,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": [
+        "market"
+      ]
+    },
+    {
+      "id": "press",
+      "kind": "processor",
+      "name": "Juice press",
+      "position": [
+        4,
+        -3
+      ],
+      "cost": 160,
+      "input": "apple",
+      "output": "juice",
+      "price": 0,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": [
+        "orchard"
+      ]
+    },
+    {
+      "id": "bar",
+      "kind": "shop",
+      "name": "Juice stand",
+      "position": [
+        4,
+        -8
+      ],
+      "cost": 200,
+      "input": "juice",
+      "output": "",
+      "price": 32,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": [
+        "press"
+      ]
+    },
+    {
+      "id": "helper",
+      "kind": "worker",
+      "name": "Market helper",
+      "position": [
+        -4,
+        -8
+      ],
+      "cost": 220,
+      "input": "",
+      "output": "",
+      "price": 0,
+      "cycle": 1.5,
+      "capacity": 8,
+      "requires": [
+        "orchard"
+      ],
+      "target": "market"
+    }
+  ]
+}

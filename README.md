@@ -2,7 +2,7 @@
 
 A native Godot 4.5.1 app for **Android and iOS** that runs a collection of downloadable, data-driven 3D tycoon games. One installed app contains the shared mechanics; new games are published as JSON packs and downloaded from your catalog server. Downloaded packs and progress remain on the device for offline play.
 
-This is a working first foundation, not a polished commercial engine or a reproduction of any screenshot's original game. The source is maintained in [IveBeenAl0ne/literal-mobile-slop](https://github.com/IveBeenAl0ne/literal-mobile-slop). There is no deployed catalog server yet. The gameplay/server/download tests, Android APK export, and unsigned iOS device build have passed on GitHub Actions. Phone-device testing and credentialed iOS signing remain unverified.
+This is a working first foundation, not a polished commercial engine or a reproduction of any screenshot's original game. The source is maintained in [IveBeenAl0ne/literal-mobile-slop](https://github.com/IveBeenAl0ne/literal-mobile-slop). The public catalog is served as static files from this repository; no running backend is required for downloads. The gameplay/server/download tests, Android APK export, and unsigned iOS device build have passed on GitHub Actions. Phone-device testing and credentialed iOS signing remain unverified.
 
 ![Native runtime preview](docs/runtime-preview.png)
 
@@ -12,6 +12,7 @@ This is a working first foundation, not a polished commercial engine or a reprod
 - Sources, processors, shops, gradual spending on unlock pads, prerequisites, helpers, customer visuals, and progression prompts.
 - Three independently playable starter games: Sunny Farm, Corner Café, Dusty Depot.
 - Library screen with HTTP catalog, download/update buttons, SHA-256 checks, bounded and validated packs, atomic installation, independent saves.
+- Static GitHub-hosted catalog plus a downloadable Apple Orchard sample.
 - Python catalog server, browser pack editor with draggable layout, JSON import/export, and authenticated local publishing.
 - GitHub Actions: gameplay/server tests, Android debug APK, unsigned iOS device build and Xcode project. Optional signed iOS export using your certificate and profile.
 
@@ -23,6 +24,32 @@ This is a working first foundation, not a polished commercial engine or a reprod
 4. Harvest from the source on the left; stock the station on the right. Café/depot require taking the processed output to the shop farther north. Standing beside a shop with no items to deliver collects its money.
 
 No Node, Unity, or third-party Python modules are required.
+
+## Download from GitHub now
+
+The APK from the first verified build defaults to localhost. In its server address field enter:
+
+```text
+https://raw.githubusercontent.com/IveBeenAl0ne/literal-mobile-slop/main/client
+```
+
+Tap **Connect / Refresh catalog**, then **Download** on **Apple Orchard**. The other three catalog games are already bundled. Future builds default to this GitHub address. Saved custom server addresses remain in effect.
+
+## Static hosting and publishing
+
+The app only requests `catalog.json` and `packs/<id>.json` under the server address. `catalog.json` lists titles, versions, sizes, and SHA-256 hashes of the exact downloaded bytes. Any static HTTPS host works. The Python program is needed only if you want its local editing/publishing interface.
+
+1. Use the local editor below, or export a game as JSON into `client/packs/<id>.json`.
+2. For updates, increase the game's version.
+3. Run `python tools/export_catalog.py` to regenerate `client/catalog.json`.
+4. Commit the pack files and catalog together, then push to GitHub.
+5. Refresh the catalog in the app. Download the new game or update; no app rebuild is needed.
+
+GitHub's raw-file hosting works immediately for this public repo. Updates can take a few minutes to propagate through caches; if a checksum mismatch appears, refresh and retry later. For larger distribution, use dedicated static hosting/CDN.
+
+To export a standalone static folder: `python tools/export_catalog.py --output-dir public`. Upload that folder to your HTTPS host. For local testing: `python -m http.server 8787 --directory public`.
+
+Optional GitHub Pages: in repository **Settings → Pages**, set **Source → GitHub Actions**, then run **Publish catalog to GitHub Pages** from Actions. The app's base address will be `https://ivebeenal0ne.github.io/literal-mobile-slop` after successful deployment. This optional workflow is manual; rerun it after changing packs. Pages does not run Python or accept editor uploads. Edit locally, commit, then deploy. GitHub raw-file hosting remains the default and does not need Pages enabled.
 
 ## Create and download a new game
 

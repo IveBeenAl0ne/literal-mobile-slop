@@ -6,7 +6,7 @@ var status: Label
 var url: LineEdit
 var catalog: Array = []
 var installed: Dictionary = {}
-var base_url = "http://127.0.0.1:8787"
+var base_url = "https://raw.githubusercontent.com/IveBeenAl0ne/literal-mobile-slop/main/client"
 var busy = false
 var world: Node3D
 

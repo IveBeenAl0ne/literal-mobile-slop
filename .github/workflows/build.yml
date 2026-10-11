@@ -33,15 +33,17 @@ jobs:
           sudo install /tmp/godot/Godot* /usr/local/bin/godot
       - name: Validate server and native gameplay
         run: |
+          python tools/export_catalog.py --check
           python -m unittest discover -s tests -v
           godot --headless --path client --editor --import --quit
           godot --headless --path client --script res://tests/test_simulation.gd
           godot --headless --path client --script res://tests/test_world.gd
-      - name: Test native catalog downloads
+      - name: Test native downloads from a plain static HTTP server
         run: |
           mkdir -p /tmp/tycoon-test-packs
           python tools/create_test_pack.py /tmp/tycoon-test-packs
-          python server/server.py --host 127.0.0.1 --port 18787 --packs /tmp/tycoon-test-packs > /tmp/tycoon-server.log 2>&1 &
+          python tools/export_catalog.py --packs /tmp/tycoon-test-packs --output-dir /tmp/tycoon-static
+          python -m http.server 18787 --bind 127.0.0.1 --directory /tmp/tycoon-static > /tmp/tycoon-server.log 2>&1 &
           SERVER_PID=$!
           trap 'kill "$SERVER_PID"' EXIT
           python tools/wait_server.py http://127.0.0.1:18787/catalog.json
