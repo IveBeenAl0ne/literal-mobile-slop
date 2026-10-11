@@ -22,7 +22,7 @@ Optional signing uses a manual workflow run with `sign_ios` enabled. Configure:
 
 Choose an export method matching the certificate/profile: `debugging` for development, `release-testing` for ad hoc, or `app-store-connect` for a store distribution archive. Device testing profiles must contain the device UDIDs. The workflow packages the signed IPA but does not upload to TestFlight or submit to a store.
 
-Apple account credentials and certificates are not provided in this project. Signing has not been verified here, and the hosted build jobs have not been run until a repository is supplied. First runner builds may expose SDK/Xcode changes needing fixes.
+Apple account credentials and certificates are not provided in this project. Hosted gameplay/server/download tests, Android APK export, and unsigned iOS device compilation passed on 2026-10-11 in [run 38164007103](https://github.com/IveBeenAl0ne/literal-mobile-slop/actions/runs/38164007103). Credentialed iOS signing and phone-device testing have not been verified.
 
 Sources checked during implementation:
 - https://docs.godotengine.org/en/4.5/tutorials/export/exporting_for_android.html

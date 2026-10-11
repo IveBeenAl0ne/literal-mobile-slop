@@ -2,7 +2,7 @@
 
 A native Godot 4.5.1 app for **Android and iOS** that runs a collection of downloadable, data-driven 3D tycoon games. One installed app contains the shared mechanics; new games are published as JSON packs and downloaded from your catalog server. Downloaded packs and progress remain on the device for offline play.
 
-This is a working first foundation, not a polished commercial engine or a reproduction of any screenshot's original game. The source is maintained in [IveBeenAl0ne/literal-mobile-slop](https://github.com/IveBeenAl0ne/literal-mobile-slop). There is no deployed catalog server yet. The GitHub workflows are supplied but have not been run on hosted runners.
+This is a working first foundation, not a polished commercial engine or a reproduction of any screenshot's original game. The source is maintained in [IveBeenAl0ne/literal-mobile-slop](https://github.com/IveBeenAl0ne/literal-mobile-slop). There is no deployed catalog server yet. The gameplay/server/download tests, Android APK export, and unsigned iOS device build have passed on GitHub Actions. Phone-device testing and credentialed iOS signing remain unverified.
 
 ![Native runtime preview](docs/runtime-preview.png)
 
@@ -37,6 +37,10 @@ Open `http://localhost:8787/editor` on the server computer. Paste the editor tok
 In the phone app enter the server's address and tap **Connect / Refresh catalog**, then **Download**. Use the computer's LAN address on a phone, not `127.0.0.1` (that points at the phone itself). For iOS local development use a local hostname such as `http://your-computer.local:8787`; the iOS preset permits local networking. **Use HTTPS for a hosted server**; arbitrary public HTTP is not enabled in iOS.
 
 Both devices must reach the server. Allow port 8787 in your computer's firewall for LAN testing. The editor only accepts connections/publishing from localhost. Public users only get the catalog and pack files. For production, terminate HTTPS with a reverse proxy or serve the catalog and pack directory from ordinary static hosting.
+
+## Verified builds
+
+[Download Android APK / unsigned iOS IPA from the passing build](https://github.com/IveBeenAl0ne/literal-mobile-slop/actions/runs/38164007103). Open the run and choose the platform artifact.
 
 ## GitHub builds
 
