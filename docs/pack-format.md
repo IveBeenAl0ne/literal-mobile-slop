@@ -9,11 +9,12 @@ Use `client/packs/*.json` as complete examples. JSON is the downloadable game de
 | `version` | Increasing positive version (use integers) |
 | `title`, `description` | Library card text, at most 500 characters |
 | `starting_cash` | Initial balance for a new save |
+| `setting` | Optional `farm`, `orchard`, `cafe`, `bakery`, or `depot`; selects scenery and default equipment |
 | `theme` | `ground`, `accent`, `player`: 6-digit hexadecimal colors |
 | `items` | Objects with unique `id` and hexadecimal `color` |
 | `stations` | Station definitions |
 
-Every station needs `id`, `kind`, `name`, `position` `[x,z]`, `cost`, `cycle`, `capacity`, and `price`. Positions are inside [-18,18]. Keep stations at least 3 units apart and keep the spawn at `[0,6]` clear. Interactions trigger within 2.1 units; station collision footprint is fixed at 1.5 × 0.8 units.
+Every station needs `id`, `kind`, `name`, `position` `[x,z]`, `cost`, `cycle`, `capacity`, and `price`. Positions are inside [-18,18]. Keep stations at least 3 units apart and keep the spawn at `[0,6]` clear. Use the marked pickup, supply, cash, and build zones. Station collision footprint is 2.1 × 1.1 units; keep their front and sides accessible.
 
 | Kind | Behavior | Extra fields |
 | --- | --- | --- |
@@ -24,6 +25,10 @@ Every station needs `id`, `kind`, `name`, `position` `[x,z]`, `cost`, `cycle`, `
 | `decoration` | Purchasable cosmetic prop | none |
 
 A zero-cost station begins unlocked. Other stations become purchasable once every station in `requires` is unlocked. Circular prerequisites are rejected. Purchase pads spend cash gradually and retain partial payments in saves. A helper's `target` should be a shop or processor; it gathers matching output from any unlocked source/processor.
+
+### Authored models
+
+An optional station `model` selects a bundled GLB by ID. Leave it blank for the default matching its kind and game setting. Allowed names are listed in `TycoonModels.STATIONS` in `client/scripts/models.gd`; the desktop editor offers the same choices. Packs never supply arbitrary asset paths. Custom `visual` parts take precedence over `model`. Native equipment models include a `StockAnchor` for product displays and machines may include a `Spinner` for processing animation.
 
 ### Custom props
 

@@ -3,7 +3,7 @@
   "id": "corner_cafe",
   "title": "Corner Caf\u00e9",
   "description": "Carry beans to the roaster, stock the coffee counter, and hire a barista.",
-  "version": 2,
+  "version": 3,
   "starting_cash": 40,
   "theme": {
     "ground": "dec59f",
@@ -35,7 +35,8 @@
       "price": 0,
       "cycle": 1.0,
       "capacity": 12,
-      "requires": []
+      "requires": [],
+      "model": "coffee_delivery"
     },
     {
       "id": "roaster",
@@ -51,7 +52,8 @@
       "price": 0,
       "cycle": 1.2,
       "capacity": 12,
-      "requires": []
+      "requires": [],
+      "model": "coffee_roaster"
     },
     {
       "id": "counter",
@@ -67,7 +69,8 @@
       "price": 18,
       "cycle": 1.4,
       "capacity": 12,
-      "requires": []
+      "requires": [],
+      "model": "coffee_counter"
     },
     {
       "id": "delivery",
@@ -83,7 +86,8 @@
       "price": 0,
       "cycle": 1.0,
       "capacity": 12,
-      "requires": []
+      "requires": [],
+      "model": "coffee_delivery"
     },
     {
       "id": "helper",
@@ -102,7 +106,8 @@
       "requires": [
         "delivery"
       ],
-      "target": "counter"
+      "target": "counter",
+      "model": "staff_locker"
     },
     {
       "id": "seating",
@@ -120,7 +125,9 @@
       "capacity": 12,
       "requires": [
         "helper"
-      ]
+      ],
+      "model": "table_set"
     }
-  ]
+  ],
+  "setting": "cafe"
 }

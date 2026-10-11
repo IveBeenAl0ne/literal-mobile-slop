@@ -37,8 +37,9 @@ var themed = "farm"
 func setup(pack: Dictionary):
 	sim = TycoonSimulation.new(pack)
 	sim.external_actors = true
-	if pack.id in ["corner_cafe", "donut_studio"]: themed = "cafe"
-	elif pack.id == "dusty_depot": themed = "depot"
+	themed = pack.get("setting", "farm")
+	if themed == "bakery": themed = "cafe"
+	elif themed == "orchard": themed = "farm"
 	var path = "user://saves/%s.json" % pack.id
 	if not preview_mode and FileAccess.file_exists(path): sim.restore(JSON.parse_string(FileAccess.get_file_as_string(path)))
 
@@ -93,9 +94,9 @@ func _ready():
 	collision.position.y = 0.7
 	player.add_child(collision)
 	add_child(player)
-	avatar = character(player, Color(sim.pack.theme.player))
+	avatar = character(player, Color(sim.pack.theme.player), "player")
 	stack = Node3D.new()
-	stack.position = Vector3(0, 1.05, 0.48)
+	stack.position = Vector3(0, 1.05, -0.48)
 	avatar.add_child(stack)
 	camera = Camera3D.new()
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
@@ -137,9 +138,9 @@ func _ready():
 			add_child(actor)
 			actor.position = visuals[s.id].position + Vector3(0, 0, 1.5)
 			actor.visible = sim.stations[s.id].unlocked
-			var body = character(actor, Color(sim.pack.theme.accent))
+			var body = character(actor, Color(sim.pack.theme.accent), "worker")
 			var carrying = Node3D.new()
-			carrying.position = Vector3(0, 1, 0.45)
+			carrying.position = Vector3(0, 1, -0.45)
 			body.add_child(carrying)
 			helpers.append({"id": s.id, "node": actor, "avatar": body, "stack": carrying, "item": "", "amount": 0, "source": "", "gait": 0.0, "route": []})
 	sim.activity.connect(on_activity)
@@ -231,38 +232,31 @@ func build_ground():
 			var pos = Vector3(rng.randf_range(13.8, 15.2) * (-1 if n % 2 else 1), 0, rng.randf_range(-18, 14))
 			tree(pos)
 		if themed == "depot":
-			for z in range(-14, 11, 4):
-				box(self, Vector3(10, 0.5, z), Vector3(3, 1, 1.5), Color("6a8791"))
-				box(self, Vector3(10, 1.25, z), Vector3(2.8, 0.5, 1.4), Color("d5aa68"))
+			var van = TycoonModels.create("delivery_van")
+			add_child(van)
+			van.position = Vector3(10, 0, 10)
+			for z in range(-14, 8, 4):
+				var equipment = TycoonModels.create("scrap_bin" if z < 0 else "ingredient_pallet")
+				add_child(equipment)
+				equipment.position = Vector3(10, 0, z)
 
 func seating(parent: Node, pos: Vector3):
-	cylinder(parent, pos + Vector3(0, 0.7, 0), 0.8, 0.15, Color("e5bb85"))
-	cylinder(parent, pos + Vector3(0, 0.35, 0), 0.14, 0.7, Color("5f6976"))
-	for x in [-1.2, 1.2]:
-		box(parent, pos + Vector3(x, 0.4, 0), Vector3(0.65, 0.12, 0.65), Color("e88881"))
-		box(parent, pos + Vector3(x, 0.75, 0.3), Vector3(0.65, 0.65, 0.12), Color("e88881"))
-		for offset in [-0.22, 0.22]: box(parent, pos + Vector3(x + offset, 0.2, 0), Vector3(0.08, 0.4, 0.5), Color("5f6976"))
+	var model = TycoonModels.create("table_set")
+	parent.add_child(model)
+	model.position = pos
 
 func tree(pos: Vector3):
-	cylinder(self, pos + Vector3(0, 0.9, 0), 0.16, 1.8, Color("805743"))
-	sphere(self, pos + Vector3(0, 2.2, 0), 1.05, Color("76b866"))
-	sphere(self, pos + Vector3(0.5, 1.9, 0.2), 0.7, Color("88c36d"))
+	var model = TycoonModels.create("shade_tree")
+	add_child(model)
+	model.position = pos
 
-func character(parent: Node3D, color: Color) -> Node3D:
-	var node = Node3D.new()
+func character(parent: Node3D, color: Color, role: String = "customer") -> Node3D:
+	var node = TycoonModels.create("character")
 	parent.add_child(node)
-	cylinder(node, Vector3(0, 0.75, 0), 0.28, 0.55, color)
-	sphere(node, Vector3(0, 1.24, 0), 0.3, Color("ffcfaa"))
-	var hair = sphere(node, Vector3(0, 1.38, 0.04), 0.28, color.darkened(0.5))
-	hair.scale.y = 0.65
-	for x in [-0.095, 0.095]: sphere(node, Vector3(x, 1.26, -0.27), 0.035, Color("263644"))
-	for x in [-0.15, 0.15]:
-		var foot = cylinder(node, Vector3(x, 0.23, 0), 0.12, 0.45, Color("36465d"))
-		foot.name = "Left" if x < 0 else "Right"
-		box(node, Vector3(x, 0.045, -0.06), Vector3(0.23, 0.09, 0.35), Color("253348"))
-	for x in [-0.36, 0.36]:
-		cylinder(node, Vector3(x, 0.77, 0), 0.09, 0.42, color)
-		sphere(node, Vector3(x, 0.55, 0), 0.1, Color("ffcfaa"))
+	TycoonModels.dress(node, color)
+	var chef = role != "customer" and themed == "cafe"
+	node.find_child("ChefHat", true, false).visible = chef
+	node.find_child("Cap", true, false).visible = role != "customer" and not chef
 	return node
 
 func build_station(s: Dictionary):
@@ -270,7 +264,6 @@ func build_station(s: Dictionary):
 	var props = Node3D.new()
 	props.name = "Props"
 	station_root.add_child(props)
-	var accent = Color(sim.pack.theme.accent)
 	if s.has("visual"):
 		for part in s.visual:
 			var pos = Vector3(part.position[0], part.position[1], part.position[2])
@@ -284,39 +277,8 @@ func build_station(s: Dictionary):
 			else:
 				var piece = sphere(props, pos, dimensions.x * 0.5, color)
 				piece.scale = Vector3(1, dimensions.y / dimensions.x, dimensions.z / dimensions.x)
-	elif s.kind == "source":
-		if themed == "farm":
-			box(props, Vector3(0, 0.12, 0), Vector3(2.5, 0.24, 1.8), Color("996b49"))
-			for x in [-0.85, 0, 0.85]:
-				cylinder(props, Vector3(x, 0.45, 0), 0.075, 0.65, Color("619b44"))
-				var leaf = sphere(props, Vector3(x, 0.7, 0), 0.42, Color("70b354"))
-				leaf.scale = Vector3(0.75, 1.15, 0.55)
-		else:
-			box(props, Vector3(0, 0.25, 0), Vector3(2.1, 0.5, 1.2), Color("b78757"))
-			for x in [-0.9, 0.9]: box(props, Vector3(x, 0.75, 0), Vector3(0.12, 1.5, 1.3), Color("7c7469"))
-			for y in [0.65, 1.3]: box(props, Vector3(0, y, 0), Vector3(2, 0.1, 1.2), Color("ede3cc"))
-	elif s.kind == "processor":
-		box(props, Vector3(0, 0.55, 0), Vector3(1.8, 1.1, 1.25), accent)
-		box(props, Vector3(0, 1.13, 0), Vector3(2.1, 0.15, 1.45), Color("f4eee5"))
-		box(props, Vector3(0, 0.65, 0.64), Vector3(1.25, 0.45, 0.06), Color("374453"))
-		for x in [-0.45, 0.45]: cylinder(props, Vector3(x, 1.3, 0), 0.27, 0.25, Color("657381"))
-		var spinner = cylinder(props, Vector3(0, 1.55, 0), 0.48, 0.1, Color("eac174"))
-		spinner.name = "Spinner"
-		box(spinner, Vector3(0, 0.08, 0), Vector3(0.65, 0.1, 0.12), Color("fff8df"))
-	elif s.kind == "shop":
-		box(props, Vector3(0, 0.52, 0), Vector3(2.4, 1.04, 1.15), Color("f1ddbe"))
-		box(props, Vector3(0, 1.1, 0), Vector3(2.65, 0.15, 1.4), accent)
-		box(props, Vector3(0.8, 1.3, 0), Vector3(0.5, 0.3, 0.45), Color("556577"))
-		var screen = box(props, Vector3(0.8, 1.55, -0.08), Vector3(0.55, 0.35, 0.06), Color("364452"))
-		screen.rotation_degrees.x = -18
-		box(props, Vector3(0.8, 1.55, -0.12), Vector3(0.4, 0.2, 0.01), Color("8dddb7"))
-		if themed == "farm":
-			for x in [-1.12, 1.12]: cylinder(props, Vector3(x, 1.45, -0.45), 0.055, 2.9, Color("99734d"))
-			for n in range(6): box(props, Vector3(-1.1 + n * 0.44, 2.9, 0), Vector3(0.44, 0.15, 1.8), accent if n % 2 else Color("fff1d2"))
-	elif s.kind == "worker":
-		box(props, Vector3(0, 0.08, 0), Vector3(1.7, 0.16, 1.2), accent)
-		make_label(props, Vector3(0, 0.55, 0), "HELPER", 30)
-	else: seating(props, Vector3.ZERO)
+	else:
+		props.add_child(TycoonModels.create(TycoonModels.station(s, sim.pack.get("setting", "farm"))))
 	var blocker = barrier(station_root.position + Vector3(0, 0.6, 0), Vector3(2.1, 1.2, 1.1))
 	blocker.name = "Blocker_" + s.id
 	# Locked blueprints have no collision until they are built.
@@ -342,22 +304,8 @@ func item(parent: Node, pos: Vector3, id: String) -> Node3D:
 	var node = Node3D.new()
 	node.position = pos
 	parent.add_child(node)
-	if "donut" in id:
-		var mesh = MeshInstance3D.new()
-		var shape = TorusMesh.new()
-		shape.inner_radius = 0.12
-		shape.outer_radius = 0.26
-		shape.rings = 16
-		shape.ring_segments = 8
-		mesh.mesh = shape
-		mesh.material_override = material(item_color(id))
-		node.add_child(mesh)
-	elif id in ["coffee", "juice"]:
-		cylinder(node, Vector3(0, 0.12, 0), 0.16, 0.28, item_color(id))
-		cylinder(node, Vector3(0, 0.28, 0), 0.17, 0.05, Color("fff1dc"))
-	elif id in ["tomato", "apple"]:
-		sphere(node, Vector3.ZERO, 0.2, item_color(id))
-		box(node, Vector3(0, 0.19, 0), Vector3(0.04, 0.1, 0.04), Color("647b43"))
+	var model = TycoonModels.create(id)
+	if model: node.add_child(model)
 	else: box(node, Vector3.ZERO, Vector3(0.4, 0.19, 0.3), item_color(id))
 	return node
 
@@ -538,12 +486,17 @@ func _physics_process(delta: float):
 	if save_timer > 5: save(); save_timer = 0
 	for s in sim.pack.stations:
 		if s.kind == "processor" and sim.stations[s.id].unlocked:
-			var spinner = visuals[s.id].get_node_or_null("Props/Spinner")
+			var spinner = visuals[s.id].get_node("Props").find_child("Spinner", true, false)
 			if spinner and sim.stations[s.id].input_stock > 0: spinner.rotation.y += delta * 4
 
 func animate_walk(body: Node3D, phase: float, strength: float):
-	body.get_node("Left").rotation.x = sin(phase) * 0.6 * strength
-	body.get_node("Right").rotation.x = -sin(phase) * 0.6 * strength
+	body.find_child("Left", true, false).rotation.x = sin(phase) * 0.6 * strength
+	body.find_child("Right", true, false).rotation.x = -sin(phase) * 0.6 * strength
+	var holding = body == avatar and sim.bag_count() > 0
+	for helper in helpers:
+		if helper.avatar == body and helper.amount > 0: holding = true
+	body.find_child("LeftArm", true, false).rotation.x = 1.0 if holding else -sin(phase) * 0.35 * strength
+	body.find_child("RightArm", true, false).rotation.x = 1.0 if holding else sin(phase) * 0.35 * strength
 
 func walk_actor(actor: Dictionary, target: Vector3, speed: float, delta: float) -> bool:
 	var direction: Vector3 = target - actor.node.position
@@ -711,14 +664,16 @@ func refresh_stock(s: Dictionary):
 	if not st.unlocked: return
 	var count: int = st.input_stock if s.kind == "shop" else st.stock
 	var id: String = s.input if s.kind == "shop" else s.output
-	for n in range(mini(12, count)):
-		var pos = Vector3(-0.6 + (n % 3) * 0.42, 1.25 + (n / 6) * 0.27, -0.25 + ((n / 3) % 2) * 0.4)
-		if s.kind == "source": pos.y = (0.8 if themed == "farm" else 1.5) + (n / 6) * 0.22
+	var anchor = visuals[s.id].get_node("Props").find_child("StockAnchor", true, false)
+	var center = anchor.position if anchor else Vector3(0, 1.3, 0)
+	var spacing = 0.28 if s.kind == "processor" else 0.38
+	for n in range(mini(6 if s.kind == "processor" else 12, count)):
+		var pos = center + Vector3((n % 3 - 1) * spacing, (n / 6) * 0.23, ((n / 3) % 2) * 0.25)
 		item(stock_root, pos, id)
 	if s.kind == "shop" and st.pending_cash > 0:
 		for n in range(mini(12, ceili(st.pending_cash / maxf(1, s.price)))):
 			var pos = Vector3(-0.35 + (n % 3) * 0.34, 0.08 + (n / 3) * 0.055, 1.85)
-			box(cash_root, pos, Vector3(0.3, 0.05, 0.18), Color("70b657"))
+			item(cash_root, pos, "cash_bundle")
 		make_label(cash_root, Vector3(0, 0.7, 1.9), "$%d" % st.pending_cash, 30)
 
 func on_activity(kind: String, id: String, item_id: String, amount: float):

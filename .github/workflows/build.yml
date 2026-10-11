@@ -39,6 +39,7 @@ jobs:
           godot --headless --path client --script res://tests/test_simulation.gd
           godot --headless --path client --script res://tests/test_world.gd
           godot --headless --path client --script res://tests/test_polish.gd
+          godot --headless --path client --script res://tests/test_models.gd
       - name: Test native downloads from a plain static HTTP server
         run: |
           mkdir -p /tmp/tycoon-test-packs

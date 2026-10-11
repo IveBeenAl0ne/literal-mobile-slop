@@ -25,6 +25,7 @@ static func validate(p: Variant) -> String:
 	for key in ["title", "description"]:
 		if not p.get(key) is String or p[key].length() > 500:
 			return "Missing or invalid " + key
+	if p.has("setting") and not p.setting in TycoonModels.SETTINGS: return "Invalid setting."
 	if not p.get("theme") is Dictionary:
 		return "Missing theme."
 	for key in ["ground", "accent", "player"]:
@@ -50,6 +51,7 @@ static func validate(p: Variant) -> String:
 		ids.append(s.id)
 		if not s.get("kind") in KINDS or not s.get("name") is String or s.name.length() > 64:
 			return "Invalid station kind/name."
+		if s.has("model") and s.model != "" and not s.model in TycoonModels.STATIONS: return "Unknown station model."
 		if not s.get("position") is Array or s.position.size() != 2:
 			return "Invalid position."
 		for n in s.position:

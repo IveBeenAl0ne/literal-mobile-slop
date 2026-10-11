@@ -5,6 +5,8 @@ import re
 MAX_BYTES = 1024 * 1024
 ID = re.compile(r'^[a-z0-9_-]{1,48}$')
 COLOR = re.compile(r'^#?(?:[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$')
+MODELS = {'coffee_roaster', 'planter', 'market_stall', 'staff_locker', 'parts_counter', 'coffee_delivery', 'bakery_counter', 'table_set', 'tomato_plot', 'coffee_counter', 'donut_fryer', 'chocolate_glazer', 'shade_tree', 'scrap_bin', 'ingredient_pallet', 'orchard_tree', 'recycler', 'delivery_van', 'juice_press'}
+SETTINGS = {"farm", "orchard", "cafe", "bakery", "depot"}
 KINDS = {'source', 'processor', 'shop', 'worker', 'decoration'}
 
 
@@ -27,6 +29,7 @@ def validate(p):
     require(number(p.get('version'), 1, 1000000), 'Invalid version')
     for key in ('title', 'description'):
         require(isinstance(p.get(key), str) and len(p[key]) <= 500, f'Invalid {key}')
+    require('setting' not in p or (isinstance(p['setting'], str) and p['setting'] in SETTINGS), 'Invalid setting')
     require(isinstance(p.get('theme'), dict), 'Missing theme')
     for key in ('ground', 'accent', 'player'):
         require(isinstance(p['theme'].get(key), str) and COLOR.fullmatch(p['theme'][key]), f'Invalid theme {key}')
@@ -42,6 +45,7 @@ def validate(p):
     for s in p['stations']:
         require(isinstance(s, dict) and valid_id(s.get('id')) and s['id'] not in ids, 'Invalid/duplicate station')
         ids.add(s['id'])
+        require('model' not in s or (isinstance(s['model'], str) and (s['model'] == '' or s['model'] in MODELS)), 'Unknown station model')
         require(s.get('kind') in KINDS, 'Invalid station kind')
         require(isinstance(s.get('name'), str) and len(s['name']) <= 64, 'Invalid station name')
         require(isinstance(s.get('position'), list) and len(s['position']) == 2 and all(number(v, -18, 18) for v in s['position']), 'Invalid position')

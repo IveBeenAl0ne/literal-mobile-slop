@@ -2,6 +2,8 @@
 
 One native **Android + iOS** app for browsing, downloading, and playing a collection of tycoons. Games are data packs served by static HTTPS hosting. The shared Godot 4.5.1 runtime handles movement, production, shops, customer queues, helpers, upgrades, and saves.
 
+**Create games on your computer; browse and play on your phone.** The phone app contains no game creation tools.
+
 The app has a fixed catalog address. It checks for games automatically on launch and whenever you leave a game. Players browse artwork, search, open a game page, and tap **Get** or **Play**. There is no server address setting. Installed games and the last catalog work offline.
 
 ![Library](docs/library-preview.png)
@@ -25,9 +27,15 @@ Customers queue, reach a counter, wait for service, consume stock, then leave. S
 
 Import `client/project.godot` in **Godot 4.5.1 standard** and run it. No .NET edition or third-party Python modules are required.
 
-[GitHub Actions builds](https://github.com/IveBeenAl0ne/literal-mobile-slop/actions): **Build Tycoon Hub** produces an installable arm64 Android debug APK and an unsigned iPhone IPA/Xcode project. Download artifacts from a successful run for the current commit. The older 0.1 APK has the old library UI; install the 0.2 build to get the redesigned library and gameplay changes. Unsigned iOS IPAs require signing before phone installation. Optional signed iOS export is documented in [docs/builds.md](docs/builds.md).
+[GitHub Actions builds](https://github.com/IveBeenAl0ne/literal-mobile-slop/actions): **Build Tycoon Hub** produces an installable arm64 Android debug APK and an unsigned iPhone IPA/Xcode project. Download artifacts from a successful run for the current commit. The older 0.1 APK has the old library UI; install the 0.3 build for the authored 3D models and updated gameplay. Unsigned iOS IPAs require signing before phone installation. Optional signed iOS export is documented in [docs/builds.md](docs/builds.md).
 
 Both platform builds were verified for the first foundation; updated builds are run on each push. Phone-device testing and credentialed iOS signing remain unverified. The debug Android key is cached between builds: keep that cache to preserve upgrade compatibility and local saves.
+
+## Model kit
+
+The runtime includes 31 original GLB assets: orchard trees, tomato plants, ingredient pallets, a coffee roaster, juice press, fryer, chocolate glazer, recycling equipment, four distinct sales counters, café furniture, a delivery van, food items, and a character rig with swinging limbs and role-specific hats. Materials, bevels, display trays, registers, and details are authored into meshes. Packs choose models by ID; the desktop editor includes a model picker and setting selector.
+
+Rebuild the editable original kit with `python tools/build_models.py` (standard Python only). Models live in `client/assets/models`; their triangle budgets are recorded in `manifest.json`. Reusing existing models in a new pack needs no app rebuild. Adding a new GLB to the kit requires updating the runtime allowlist and rebuilding both apps.
 
 ## Make and publish a game
 

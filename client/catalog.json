@@ -3,48 +3,48 @@
   "packs": [
     {
       "id": "apple_orchard",
-      "version": 2,
+      "version": 3,
       "title": "Apple Orchard",
       "description": "Downloadable farm variant: gather apples, press juice, and expand your orchard.",
-      "sha256": "32a156f289e221e01bac38353a28f9758d98e42c6f786110515ee89f0a194ca9",
-      "size": 2271,
-      "cover_sha256": "6a3a69c7a61caf0fca7a6f27a36086973211e3b1573bf0876801490ed89c8227"
+      "sha256": "e77dde062c70168a2ac4219a43f4d92cdadb5f6c96b24f570d5db32b8d06649a",
+      "size": 2480,
+      "cover_sha256": "b38eb799a4be5a1bf9abafa3ab1c270721f11844d8152b9c543317e51e148cbb"
     },
     {
       "id": "corner_cafe",
-      "version": 2,
+      "version": 3,
       "title": "Corner Caf\u00e9",
       "description": "Carry beans to the roaster, stock the coffee counter, and hire a barista.",
-      "sha256": "921633314cc90e8ea5ceb190c08c1f7fe744908586f910c68ab8f55030c5832e",
-      "size": 2230,
-      "cover_sha256": "c05effdd2a646560d7a1a5904dd19d798161de547bbe5c72c431d471e0db33da"
+      "sha256": "c16640836b23ace5380652dbf3224fb4d4eda7c17e667631a43121cc2c2fa4aa",
+      "size": 2444,
+      "cover_sha256": "2af913f9d18c90440014f2e3aa39e60c8fdca563094f0eebd1ebfc234cfe89b5"
     },
     {
       "id": "donut_studio",
-      "version": 1,
+      "version": 2,
       "title": "Donut Studio",
       "description": "Bake, stack, and sell donuts. Hire a crew, open a chocolate line, and turn a tiny shop into a busy bakery.",
-      "sha256": "f6f73be177793dce83bbe6b183933b5afed455b4e2fd9e9f3f8c85d488428430",
-      "size": 3680,
-      "cover_sha256": "91650829023a54c82ccabc8999444f1c8137715dcc5c8c88b6d17e9a4d9d30dd"
+      "sha256": "edf9836ee78289e7c4f96ba94b23546035978a61a1a2521eed4c68125f7e3052",
+      "size": 4027,
+      "cover_sha256": "9c2024328ba869f44510ec9036199ff2e0e0b80c34c690a88836cff6da213ec0"
     },
     {
       "id": "dusty_depot",
-      "version": 2,
+      "version": 3,
       "title": "Dusty Depot",
       "description": "Collect scrap, recycle it into parts, and reopen the roadside parts store.",
-      "sha256": "c1271a9501474b415a4d0c72ddce464e4aac842c723b7eddd98409a0edd0f268",
-      "size": 2204,
-      "cover_sha256": "5f2bc446d01f6e0f872f810651a76597453257053d225350831ec2d32d6fce39"
+      "sha256": "c07c69e34fc1b1fe7781d1adfa1967876d85d11a3623aa1594ccbdd8d122e63b",
+      "size": 2404,
+      "cover_sha256": "01496cb9337e56ecd240015bde5f3c1b80ce88c426e454d5171e6e0ed2bc8fa2"
     },
     {
       "id": "sunny_farm",
-      "version": 2,
+      "version": 3,
       "title": "Sunny Farm",
       "description": "Harvest tomatoes, supply your market, and grow a small farm into a busy business.",
-      "sha256": "f385bf34d4f0d14764c8cf0861a7a6939fa899c420d85f28757abc356cc5f892",
-      "size": 2271,
-      "cover_sha256": "28756f2f6ee481dd1f26c93768d3d2020d12fd11877675eccb59d9f0624ab7a7"
+      "sha256": "9a30ec13b496f32b5d636eb276ebacd3809de146b54c6177933fb43cc665f63a",
+      "size": 2475,
+      "cover_sha256": "82312a7e012c18e8f9a8adc044dc61fa9db9aec276d2963612976e206073e089"
     }
   ]
 }

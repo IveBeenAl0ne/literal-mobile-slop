@@ -3,7 +3,7 @@
   "id": "sunny_farm",
   "title": "Sunny Farm",
   "description": "Harvest tomatoes, supply your market, and grow a small farm into a busy business.",
-  "version": 2,
+  "version": 3,
   "starting_cash": 40,
   "theme": {
     "ground": "b7df75",
@@ -35,7 +35,8 @@
       "price": 0,
       "cycle": 1.0,
       "capacity": 12,
-      "requires": []
+      "requires": [],
+      "model": "tomato_plot"
     },
     {
       "id": "market",
@@ -51,7 +52,8 @@
       "price": 12,
       "cycle": 1.4,
       "capacity": 12,
-      "requires": []
+      "requires": [],
+      "model": "market_stall"
     },
     {
       "id": "orchard",
@@ -69,7 +71,8 @@
       "capacity": 12,
       "requires": [
         "market"
-      ]
+      ],
+      "model": "tomato_plot"
     },
     {
       "id": "press",
@@ -87,7 +90,8 @@
       "capacity": 12,
       "requires": [
         "orchard"
-      ]
+      ],
+      "model": "juice_press"
     },
     {
       "id": "bar",
@@ -105,7 +109,8 @@
       "capacity": 12,
       "requires": [
         "press"
-      ]
+      ],
+      "model": "market_stall"
     },
     {
       "id": "helper",
@@ -124,7 +129,9 @@
       "requires": [
         "orchard"
       ],
-      "target": "market"
+      "target": "market",
+      "model": "staff_locker"
     }
-  ]
+  ],
+  "setting": "farm"
 }

@@ -105,7 +105,7 @@ func show_library():
 	var title = label("Tycoon Hub", 32)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	header.add_child(title)
-	header.add_child(label("PLAY. BUILD. GROW.", 12, Color("727b8c")))
+	header.add_child(label("PICK A GAME. PLAY.", 12, Color("727b8c")))
 	search = LineEdit.new()
 	search.placeholder_text = "Search games"
 	search.custom_minimum_size.y = 46

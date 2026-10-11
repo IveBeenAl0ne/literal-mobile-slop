@@ -3,7 +3,7 @@
   "id": "donut_studio",
   "title": "Donut Studio",
   "description": "Bake, stack, and sell donuts. Hire a crew, open a chocolate line, and turn a tiny shop into a busy bakery.",
-  "version": 1,
+  "version": 2,
   "starting_cash": 40,
   "theme": {
     "ground": "e3d6c1",
@@ -39,7 +39,8 @@
       "price": 0,
       "cycle": 0.7,
       "capacity": 12,
-      "requires": []
+      "requires": [],
+      "model": "ingredient_pallet"
     },
     {
       "id": "oven",
@@ -55,7 +56,8 @@
       "price": 0,
       "cycle": 1,
       "capacity": 12,
-      "requires": []
+      "requires": [],
+      "model": "donut_fryer"
     },
     {
       "id": "counter",
@@ -71,7 +73,8 @@
       "price": 15,
       "cycle": 1.2,
       "capacity": 12,
-      "requires": []
+      "requires": [],
+      "model": "bakery_counter"
     },
     {
       "id": "delivery",
@@ -87,7 +90,8 @@
       "price": 0,
       "cycle": 0.7,
       "capacity": 12,
-      "requires": []
+      "requires": [],
+      "model": "ingredient_pallet"
     },
     {
       "id": "baker",
@@ -106,7 +110,8 @@
       "requires": [
         "delivery"
       ],
-      "target": "oven"
+      "target": "oven",
+      "model": "staff_locker"
     },
     {
       "id": "runner",
@@ -125,7 +130,8 @@
       "requires": [
         "baker"
       ],
-      "target": "counter"
+      "target": "counter",
+      "model": "staff_locker"
     },
     {
       "id": "chocolate",
@@ -143,7 +149,8 @@
       "capacity": 12,
       "requires": [
         "runner"
-      ]
+      ],
+      "model": "chocolate_glazer"
     },
     {
       "id": "chocolate_counter",
@@ -161,7 +168,8 @@
       "capacity": 12,
       "requires": [
         "chocolate"
-      ]
+      ],
+      "model": "bakery_counter"
     },
     {
       "id": "cocoa_runner",
@@ -180,7 +188,8 @@
       "requires": [
         "chocolate_counter"
       ],
-      "target": "chocolate_counter"
+      "target": "chocolate_counter",
+      "model": "staff_locker"
     },
     {
       "id": "seating",
@@ -198,7 +207,9 @@
       "capacity": 12,
       "requires": [
         "chocolate_counter"
-      ]
+      ],
+      "model": "table_set"
     }
-  ]
+  ],
+  "setting": "bakery"
 }

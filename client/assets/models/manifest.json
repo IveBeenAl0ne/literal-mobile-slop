@@ -1,0 +1,188 @@
+[
+  {
+    "file": "tomato_plot.glb",
+    "triangles": 636,
+    "bytes": 70384,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "orchard_tree.glb",
+    "triangles": 2660,
+    "bytes": 288960,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "ingredient_pallet.glb",
+    "triangles": 660,
+    "bytes": 72968,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "coffee_delivery.glb",
+    "triangles": 660,
+    "bytes": 72964,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "scrap_bin.glb",
+    "triangles": 480,
+    "bytes": 53532,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "donut_fryer.glb",
+    "triangles": 1524,
+    "bytes": 167852,
+    "mesh_primitives": 3
+  },
+  {
+    "file": "chocolate_glazer.glb",
+    "triangles": 1524,
+    "bytes": 167860,
+    "mesh_primitives": 3
+  },
+  {
+    "file": "coffee_roaster.glb",
+    "triangles": 1216,
+    "bytes": 134524,
+    "mesh_primitives": 3
+  },
+  {
+    "file": "juice_press.glb",
+    "triangles": 928,
+    "bytes": 103460,
+    "mesh_primitives": 3
+  },
+  {
+    "file": "recycler.glb",
+    "triangles": 1504,
+    "bytes": 164904,
+    "mesh_primitives": 2
+  },
+  {
+    "file": "market_stall.glb",
+    "triangles": 2940,
+    "bytes": 319224,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "coffee_counter.glb",
+    "triangles": 1468,
+    "bytes": 161000,
+    "mesh_primitives": 2
+  },
+  {
+    "file": "bakery_counter.glb",
+    "triangles": 2048,
+    "bytes": 223600,
+    "mesh_primitives": 2
+  },
+  {
+    "file": "parts_counter.glb",
+    "triangles": 2028,
+    "bytes": 220720,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "table_set.glb",
+    "triangles": 1042,
+    "bytes": 114180,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "staff_locker.glb",
+    "triangles": 840,
+    "bytes": 92348,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "planter.glb",
+    "triangles": 186,
+    "bytes": 21756,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "shade_tree.glb",
+    "triangles": 1192,
+    "bytes": 130388,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "delivery_van.glb",
+    "triangles": 776,
+    "bytes": 85468,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "character.glb",
+    "triangles": 5356,
+    "bytes": 587008,
+    "mesh_primitives": 10
+  },
+  {
+    "file": "tomato.glb",
+    "triangles": 346,
+    "bytes": 39040,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "apple.glb",
+    "triangles": 346,
+    "bytes": 39040,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "beans.glb",
+    "triangles": 516,
+    "bytes": 57312,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "dough.glb",
+    "triangles": 516,
+    "bytes": 57312,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "coffee.glb",
+    "triangles": 336,
+    "bytes": 37880,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "juice.glb",
+    "triangles": 560,
+    "bytes": 62064,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "scrap.glb",
+    "triangles": 424,
+    "bytes": 47528,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "parts.glb",
+    "triangles": 632,
+    "bytes": 69876,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "donut.glb",
+    "triangles": 1420,
+    "bytes": 154948,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "chocolate_donut.glb",
+    "triangles": 1420,
+    "bytes": 154968,
+    "mesh_primitives": 1
+  },
+  {
+    "file": "cash_bundle.glb",
+    "triangles": 404,
+    "bytes": 45264,
+    "mesh_primitives": 1
+  }
+]

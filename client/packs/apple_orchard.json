@@ -3,7 +3,7 @@
   "id": "apple_orchard",
   "title": "Apple Orchard",
   "description": "Downloadable farm variant: gather apples, press juice, and expand your orchard.",
-  "version": 2,
+  "version": 3,
   "starting_cash": 40,
   "theme": {
     "ground": "a9cf72",
@@ -35,7 +35,8 @@
       "price": 0,
       "cycle": 1.0,
       "capacity": 12,
-      "requires": []
+      "requires": [],
+      "model": "orchard_tree"
     },
     {
       "id": "market",
@@ -51,7 +52,8 @@
       "price": 12,
       "cycle": 1.4,
       "capacity": 12,
-      "requires": []
+      "requires": [],
+      "model": "market_stall"
     },
     {
       "id": "orchard",
@@ -69,7 +71,8 @@
       "capacity": 12,
       "requires": [
         "market"
-      ]
+      ],
+      "model": "orchard_tree"
     },
     {
       "id": "press",
@@ -87,7 +90,8 @@
       "capacity": 12,
       "requires": [
         "orchard"
-      ]
+      ],
+      "model": "juice_press"
     },
     {
       "id": "bar",
@@ -105,7 +109,8 @@
       "capacity": 12,
       "requires": [
         "press"
-      ]
+      ],
+      "model": "market_stall"
     },
     {
       "id": "helper",
@@ -124,7 +129,9 @@
       "requires": [
         "orchard"
       ],
-      "target": "market"
+      "target": "market",
+      "model": "staff_locker"
     }
-  ]
+  ],
+  "setting": "orchard"
 }
