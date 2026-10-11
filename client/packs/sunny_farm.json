@@ -1,0 +1,130 @@
+{
+  "format": 1,
+  "id": "sunny_farm",
+  "title": "Sunny Farm",
+  "description": "Harvest tomatoes, supply your market, and grow a small farm into a busy business.",
+  "version": 1,
+  "starting_cash": 40,
+  "theme": {
+    "ground": "b7df75",
+    "accent": "49b98b",
+    "player": "35a9cd"
+  },
+  "items": [
+    {
+      "id": "tomato",
+      "color": "ef6555"
+    },
+    {
+      "id": "juice",
+      "color": "ffae64"
+    }
+  ],
+  "stations": [
+    {
+      "id": "patch",
+      "kind": "source",
+      "name": "Tomato patch",
+      "position": [
+        -4,
+        2
+      ],
+      "cost": 0,
+      "input": "",
+      "output": "tomato",
+      "price": 0,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": []
+    },
+    {
+      "id": "market",
+      "kind": "shop",
+      "name": "Farm market",
+      "position": [
+        4,
+        2
+      ],
+      "cost": 0,
+      "input": "tomato",
+      "output": "",
+      "price": 12,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": []
+    },
+    {
+      "id": "orchard",
+      "kind": "source",
+      "name": "Second patch",
+      "position": [
+        -4,
+        -3
+      ],
+      "cost": 80,
+      "input": "",
+      "output": "tomato",
+      "price": 0,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": [
+        "market"
+      ]
+    },
+    {
+      "id": "press",
+      "kind": "processor",
+      "name": "Juice press",
+      "position": [
+        4,
+        -3
+      ],
+      "cost": 160,
+      "input": "tomato",
+      "output": "juice",
+      "price": 0,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": [
+        "orchard"
+      ]
+    },
+    {
+      "id": "bar",
+      "kind": "shop",
+      "name": "Juice stand",
+      "position": [
+        4,
+        -8
+      ],
+      "cost": 200,
+      "input": "juice",
+      "output": "",
+      "price": 32,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": [
+        "press"
+      ]
+    },
+    {
+      "id": "helper",
+      "kind": "worker",
+      "name": "Market helper",
+      "position": [
+        -4,
+        -8
+      ],
+      "cost": 220,
+      "input": "",
+      "output": "",
+      "price": 0,
+      "cycle": 1.5,
+      "capacity": 8,
+      "requires": [
+        "orchard"
+      ],
+      "target": "market"
+    }
+  ]
+}

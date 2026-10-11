@@ -1,0 +1,126 @@
+{
+  "format": 1,
+  "id": "dusty_depot",
+  "title": "Dusty Depot",
+  "description": "Collect scrap, recycle it into parts, and reopen the roadside parts store.",
+  "version": 1,
+  "starting_cash": 40,
+  "theme": {
+    "ground": "efb782",
+    "accent": "669f92",
+    "player": "ef735d"
+  },
+  "items": [
+    {
+      "id": "scrap",
+      "color": "78828d"
+    },
+    {
+      "id": "parts",
+      "color": "c4cfdb"
+    }
+  ],
+  "stations": [
+    {
+      "id": "scrap",
+      "kind": "source",
+      "name": "Scrap pile",
+      "position": [
+        -4,
+        2
+      ],
+      "cost": 0,
+      "input": "",
+      "output": "scrap",
+      "price": 0,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": []
+    },
+    {
+      "id": "recycler",
+      "kind": "processor",
+      "name": "Recycler",
+      "position": [
+        4,
+        2
+      ],
+      "cost": 0,
+      "input": "scrap",
+      "output": "parts",
+      "price": 0,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": []
+    },
+    {
+      "id": "store",
+      "kind": "shop",
+      "name": "Parts store",
+      "position": [
+        4,
+        -3
+      ],
+      "cost": 0,
+      "input": "parts",
+      "output": "",
+      "price": 24,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": []
+    },
+    {
+      "id": "yard",
+      "kind": "source",
+      "name": "North scrap yard",
+      "position": [
+        -4,
+        -3
+      ],
+      "cost": 120,
+      "input": "",
+      "output": "scrap",
+      "price": 0,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": []
+    },
+    {
+      "id": "helper",
+      "kind": "worker",
+      "name": "Store runner",
+      "position": [
+        -4,
+        -8
+      ],
+      "cost": 200,
+      "input": "",
+      "output": "",
+      "price": 0,
+      "cycle": 1.5,
+      "capacity": 8,
+      "requires": [
+        "yard"
+      ],
+      "target": "store"
+    },
+    {
+      "id": "bench",
+      "kind": "decoration",
+      "name": "Workshop",
+      "position": [
+        4,
+        -8
+      ],
+      "cost": 300,
+      "input": "",
+      "output": "",
+      "price": 0,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": [
+        "helper"
+      ]
+    }
+  ]
+}

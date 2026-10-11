@@ -1,0 +1,126 @@
+{
+  "format": 1,
+  "id": "corner_cafe",
+  "title": "Corner Caf\u00e9",
+  "description": "Carry beans to the roaster, stock the coffee counter, and hire a barista.",
+  "version": 1,
+  "starting_cash": 40,
+  "theme": {
+    "ground": "dec59f",
+    "accent": "c5804e",
+    "player": "f6c75b"
+  },
+  "items": [
+    {
+      "id": "beans",
+      "color": "82553f"
+    },
+    {
+      "id": "coffee",
+      "color": "bd8054"
+    }
+  ],
+  "stations": [
+    {
+      "id": "beans",
+      "kind": "source",
+      "name": "Bean delivery",
+      "position": [
+        -4,
+        2
+      ],
+      "cost": 0,
+      "input": "",
+      "output": "beans",
+      "price": 0,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": []
+    },
+    {
+      "id": "roaster",
+      "kind": "processor",
+      "name": "Coffee roaster",
+      "position": [
+        4,
+        2
+      ],
+      "cost": 0,
+      "input": "beans",
+      "output": "coffee",
+      "price": 0,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": []
+    },
+    {
+      "id": "counter",
+      "kind": "shop",
+      "name": "Coffee counter",
+      "position": [
+        4,
+        -3
+      ],
+      "cost": 0,
+      "input": "coffee",
+      "output": "",
+      "price": 18,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": []
+    },
+    {
+      "id": "delivery",
+      "kind": "source",
+      "name": "More beans",
+      "position": [
+        -4,
+        -3
+      ],
+      "cost": 100,
+      "input": "",
+      "output": "beans",
+      "price": 0,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": []
+    },
+    {
+      "id": "helper",
+      "kind": "worker",
+      "name": "Barista",
+      "position": [
+        -4,
+        -8
+      ],
+      "cost": 180,
+      "input": "",
+      "output": "",
+      "price": 0,
+      "cycle": 1.5,
+      "capacity": 8,
+      "requires": [
+        "delivery"
+      ],
+      "target": "counter"
+    },
+    {
+      "id": "seating",
+      "kind": "decoration",
+      "name": "Patio seating",
+      "position": [
+        4,
+        -8
+      ],
+      "cost": 250,
+      "input": "",
+      "output": "",
+      "price": 0,
+      "cycle": 2,
+      "capacity": 8,
+      "requires": [
+        "helper"
+      ]
+    }
+  ]
+}

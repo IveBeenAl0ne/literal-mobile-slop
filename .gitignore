@@ -1,0 +1,7 @@
+client/.godot/
+__pycache__/
+*.pyc
+build/
+*.keystore
+*.p12
+*.mobileprovision
