@@ -145,6 +145,8 @@ func upgrade(kind: String, id = "") -> bool:
 	return true
 
 func objective() -> String:
+	for s in pack.stations:
+		if s.kind == "shop" and stations[s.id].pending_cash > 0: return "Collect $%d at %s" % [stations[s.id].pending_cash, s.name]
 	if earned == 0:
 		if bag_count() == 0: return "Collect items from the green pickup zone"
 		for s in pack.stations:

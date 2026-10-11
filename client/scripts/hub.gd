@@ -13,6 +13,7 @@ var busy = false
 var refreshing = false
 var world: Node3D
 var section = "discover"
+var tabs: Dictionary = {}
 var cover_textures: Dictionary = {}
 var loading_covers = false
 var detail: Control
@@ -132,6 +133,7 @@ func show_library():
 	nav.offset_top = -78
 	nav.add_theme_stylebox_override("panel", style(Color.WHITE, 0))
 	background.add_child(nav)
+	tabs.clear()
 	var nav_row = HBoxContainer.new()
 	nav_row.add_theme_constant_override("separation", 12)
 	nav.add_child(nav_row)
@@ -140,6 +142,7 @@ func show_library():
 		var tab = button(item[1], func(): section = key; render_cards())
 		tab.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		nav_row.add_child(tab)
+		tabs[key] = tab
 	render_cards()
 	if auto_refresh: call_deferred("fetch_catalog")
 	else: status.text = "Your games are ready"
@@ -153,6 +156,12 @@ func entries() -> Dictionary:
 
 func render_cards():
 	if not is_instance_valid(list): return
+	for key in tabs:
+		var active: bool = section == key
+		tabs[key].add_theme_stylebox_override("normal", style(Color("2864ec") if active else Color("e9edf3"), 13))
+		for state in ["font_color", "font_hover_color", "font_pressed_color"]:
+			tabs[key].add_theme_color_override(state, Color.WHITE if active else Color("333d50"))
+		tabs[key].add_theme_stylebox_override("hover", style(Color("1b51cd") if active else Color("dce3ee"), 13))
 	for child in list.get_children():
 		list.remove_child(child)
 		child.queue_free()

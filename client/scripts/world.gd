@@ -67,8 +67,8 @@ func _ready():
 		var pad = cylinder(station_root, Vector3(0, 0.035, 0.6), 1.15, 0.035, Color("5cce95"))
 		pad.name = "Pad"
 		var marker = make_label(station_root, Vector3(0, 0.12, 0.9), "", 40)
-		marker.rotation_degrees.x = -70
-		marker.billboard = BaseMaterial3D.BILLBOARD_DISABLED
+		marker.position = Vector3(0, 0.45, 0.65)
+		marker.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 		marker.name = "Price"
 		var title = make_label(station_root, Vector3(0, 3.05, 0), s.name, 28)
 		labels[s.id] = title
@@ -129,12 +129,14 @@ func _ready():
 				var actor = Node3D.new()
 				add_child(actor)
 				var body = character(actor, Color.from_hsv(rng.randf(), 0.48, 0.85))
+				actor.visible = sim.stations[s.id].unlocked
 				actor.position = visuals[s.id].position + Vector3(6, 0, 6 + n)
 				customers.append({"node": actor, "avatar": body, "shop": s.id, "slot": n, "ticket": n, "phase": "arriving", "wait": 0.0, "gait": 0.0})
 		if s.kind == "worker":
 			var actor = Node3D.new()
 			add_child(actor)
 			actor.position = visuals[s.id].position + Vector3(0, 0, 1.5)
+			actor.visible = sim.stations[s.id].unlocked
 			var body = character(actor, Color(sim.pack.theme.accent))
 			var carrying = Node3D.new()
 			carrying.position = Vector3(0, 1, 0.45)
@@ -328,6 +330,7 @@ func add_zone(id: String, action: String, offset: Vector3, color: Color, caption
 	for z in [-0.5, 0.5]: box(node, Vector3(0, 0.045, z), Vector3(1.1, 0.025, 0.065), color)
 	var caption_node = make_label(node, Vector3(0, 0.13, 0.1), caption, 24)
 	caption_node.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	caption_node.visible = action != "build"
 	zones.append({"id": id, "action": action, "node": node})
 
 func item_color(id: String) -> Color:
